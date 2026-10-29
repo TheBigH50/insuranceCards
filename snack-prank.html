@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width,initial-scale=1">
+				<title>Updated Insurance Cards</title>
+				<style>
+*{box-sizing:border-box}body{margin:0;background:#edf2f7;color:#183047;font:17px system-ui,sans-serif;min-height:100svh;display:grid;place-items:center;padding:24px}main{width:min(100%,460px);background:white;border:1px solid #dbe3eb;border-radius:24px;padding:32px;box-shadow:0 20px 70px #17304712}h1{font-size:32px;line-height:1.15}p{line-height:1.65;color:#526477}.eyebrow{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#53677a}button{font:inherit;border:0;border-radius:12px;padding:16px 22px;background:#183f67;color:white;cursor:pointer;width:100%}.card{padding:20px;border:1px solid #d4dfe9;border-radius:14px;margin:24px 0;background:#f7fafc}.card strong{display:block;margin-bottom:8px}#effect{position:fixed;inset:0;z-index:10;background:#020904;color:#74ff9c;padding:24px;display:flex;flex-direction:column;font:13px ui-monospace,Consolas,monospace;overflow:hidden}#effect:after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 3px,#0003 4px 5px);pointer-events:none}.status{border-bottom:1px solid #27683a;padding:8px 0 18px;letter-spacing:2px;text-shadow:0 0 12px #3fff77}.status h2{font-size:24px;margin:12px 0}.meter{height:8px;border:1px solid #27683a;margin-top:16px}.fill{height:100%;background:#74ff9c;width:0}pre{flex:1;min-height:0;overflow:hidden;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.6;text-shadow:0 0 5px #56ff8270}footer{position:relative;z-index:11;background:#020904;padding-top:12px}footer button{background:#14351e;color:#b7ffcc;border:1px solid #5bb574;padding:12px}small{display:block;margin-top:12px;color:#9bdeb0}#reveal{text-align:center}#reveal h1{font-size:38px}[hidden]{display:none!important}@media(prefers-reduced-motion:reduce){pre{text-shadow:none}}
+</style>
+			</head>
+			<body>
+				<main>
+					<section id="intro">
+						<div class="eyebrow">Household documents</div>
+						<h1>Here are our new insurance cards.</h1>
+						<p>The updated cards are ready to view.</p>
+						<div class="card">
+							<strong>Updated insurance cards</strong>
+							<span>Digital document · Ready to view</span>
+						</div>
+						<button id="open">View new cards</button>
+					</section>
+					<section id="reveal" hidden aria-live="polite" tabindex="-1">
+						<div style="font-size:64px">😂</div>
+						<h1>Haha, you got pranked!</h1>
+						<p>Read your emails better lol.</p>
+						<p>
+							<strong>Your phone is fine.</strong> The hacker screen was pretend. No files were accessed and no data or money was transferred.</p>
+						<p>For real though: check the sender and verify unexpected document links. Your husband now owes you dinner. 🍕</p>
+					</section>
+				</main>
+				<section id="effect" hidden role="dialog" aria-modal="true" aria-label="Temporary movie hacker effect">
+					<header class="status">REMOTE TERMINAL // ACTIVE<h2>TRANSFER IN PROGRESS</h2>
+						<span id="percent">0%</span>
+						<div class="meter">
+							<div class="fill" id="fill"/>
+						</div>
+					</header>
+					<pre id="stream" aria-hidden="true"/>
+					<footer>
+						<button id="exit">Send Your Money Now</button>
+						<small>Visual simulation · <span id="remaining">10</span>s remaining</small>
+					</footer>
+				</section>
+				<script>
+const $=id=>document.getElementById(id);let tick,deadline,sequence=0;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;function finish(){clearInterval(tick);$('effect').hidden=true;$('intro').hidden=true;$('reveal').hidden=false;$('reveal').focus()}function render(){const elapsed=Math.min(10000,Date.now()-(deadline-10000));const progress=Math.floor(elapsed/100);$('percent').textContent=progress+'%';$('fill').style.width=progress+'%';$('remaining').textContent=Math.max(0,Math.ceil((deadline-Date.now())/1000));for(let i=0;i<(reduced?1:5);i++){sequence++;const hex=((sequence*2654435761)>>>0).toString(16).padStart(8,'0' );$('stream').textContent+=`[${String(sequence).padStart(5,'0' )}] 0x${hex} :: ${['BUFFER SYNC','RELAY HANDSHAKE','PACKET STREAM','ARCHIVE BLOCK','CHECKSUM OK'][sequence%5]} ... ${hex} ${hex}\n`}$('stream').textContent=$('stream' ).textContent.split('\n').slice(-40).join('\n');$('stream').scrollTop=$('stream' ).scrollHeight;if(Date.now()>=deadline)finish()} $('open').onclick=()=>{$('effect' ).hidden=false;$('intro' ).hidden=true;$('exit' ).focus();deadline=Date.now()+10000;render();tick=setInterval(render,reduced?1000:160)};$('exit' ).onclick=finish;document.addEventListener('keydown' ,e=>{if(e.key==='Escape'&&!$('effect').hidden)finish()});document.addEventListener('visibilitychange',()=>{if(!document.hidden&&deadline&&Date.now()>=deadline)finish()});
+</script>
+				</body>
+			</html>
